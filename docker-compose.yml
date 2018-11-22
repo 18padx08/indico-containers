@@ -38,7 +38,7 @@ services:
     networks:
       - backend
     volumes:
-      - './data/redis:/data'
+      - 'redis:/data'
   indico-postgres:
     image: centos/postgresql-96-centos7
     networks:
@@ -56,13 +56,17 @@ services:
       - indico.env
     ports:
       - "8080:8080"
-    volumes_from:
-      - indico-web
+    volumes:
+      - 'nginx-log:/opt/indico/archive'
+      - 'archive:/opt/indico/log/nginx'
+      - 'customization:/opt/indico/custom'
+      - 'static-files:/opt/indico/static'
 volumes:
   static-files:
   customization:
   nginx-log:
   archive:
+  redis:
 networks:
   backend: {}
   frontend: {}
