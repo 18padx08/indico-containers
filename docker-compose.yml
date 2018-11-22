@@ -14,14 +14,14 @@ services:
     env_file:
       - indico.env
     volumes:
-      - './data/archive:/opt/indico/archive'
-      - './data/log/nginx:/opt/indico/log/nginx'
+      - 'nginx-log:/opt/indico/archive'
+      - 'archive:/opt/indico/log/nginx'
       - 'customization:/opt/indico/custom'
       - 'static-files:/opt/indico/static'
     tmpfs:
       - /opt/indico/tmp
   indico-static:
-    build: indico/static
+    image: docker.the-admins.ch/indico-static
     networks:
       - frontend
   indico-celery:
@@ -49,7 +49,7 @@ services:
       - POSTGRESQL_DATABASE=indico
       - POSTGRESQL_ADMIN_PASSWORD=indicopass
   indico-nginx:
-    build: nginx
+    image: docker.the-admins.ch/nginx-build
     networks:
       - frontend
     env_file:
@@ -61,6 +61,8 @@ services:
 volumes:
   static-files:
   customization:
+  nginx-log:
+  archive:
 networks:
   backend: {}
   frontend: {}
