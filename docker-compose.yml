@@ -49,9 +49,11 @@ services:
       - POSTGRESQL_DATABASE=indico
       - POSTGRESQL_ADMIN_PASSWORD=indicopass
   indico-nginx:
+    hostname: indico-nginx
     image: docker.the-admins.ch/nginx-build
     networks:
       - frontend
+      - bridge
     env_file:
       - indico.env
     ports:
