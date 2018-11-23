@@ -56,8 +56,6 @@ services:
       - bridge
     env_file:
       - indico.env
-    ports:
-      - "8080:8080"
     volumes:
       - 'nginx-log:/opt/indico/archive'
       - 'archive:/opt/indico/log/nginx'
